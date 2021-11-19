@@ -1,0 +1,40 @@
+%  _  _ ___    
+% | || | __|   H
+% | __ | _|    A
+% |_||_|___|   P
+%              
+
+\documentclass[12pt,a4paper]{article}
+
+% usepackage{{{
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{xepersian}
+%}}}
+% section formatting{{{
+\titleformat{\section}
+{\Huge \bfseries} {}
+{0em} {}
+
+\titleformat{\subsection}
+{\Large \bfseries} {}
+{0em} {}
+
+\titleformat{\subsubsection}
+{\bfseries} {}
+{0em} {}
+% end formatting
+%}}}
+% font config{{{
+\settextfont{XB Zar}
+\ExplSyntaxOn \cs_set_eq:NN \etex_iffontchar:D \tex_iffontchar:D \ExplSyntaxOff
+\setdigitfont{XB Zar}
+%}}}
+
+\begin{document}
+\section{نمونه عنوان}
+
+
+\end{document}
+

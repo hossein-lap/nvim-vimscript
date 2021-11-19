@@ -1,0 +1,37 @@
+%  _  _ ___    
+% | || | __|   H
+% | __ | _|    A
+% |_||_|___|   P
+%              
+
+\documentclass[12pt]{letter}
+
+% use package{{{
+\usepackage[a4paper]{geometry}
+\usepackage[british]{babel}
+%}}}
+
+\begin{document}
+\sffamily
+
+\begin{letter}{Reciver \\ Address}
+
+% letter body{{{
+\opening{Dear XXXXXXXXXX}
+
+This is the first paragraph of the letter. \\ this is a new line.
+
+This is the second paragraph of the letter.
+
+\closing{The End}
+%}}}
+% PS section{{{
+\ps PS: this is a postscript.
+
+\encl{Photocopy of something interesting \\
+ Photocopy of something rather dull}
+
+\cc{Prof Important Person \\ Dr Bor Ing}%}}}
+\end{letter}
+
+\end{document}
