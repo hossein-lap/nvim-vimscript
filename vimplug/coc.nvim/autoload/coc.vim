@@ -9,7 +9,9 @@ let s:is_vim = !has('nvim')
 let s:error_sign = get(g:, 'coc_status_error_sign', has('mac') ? '❌ ' : 'E')
 let s:warning_sign = get(g:, 'coc_status_warning_sign', has('mac') ? '⚠️ ' : 'W')
 let s:select_api = exists('*nvim_select_popupmenu_item')
+let s:complete_info_api = exists('*complete_info')
 let s:callbacks = {}
+let s:hide_pum = has('nvim-0.6.1') || has('patch-8.2.3389')
 
 function! coc#expandable() abort
   return coc#rpc#request('snippetCheck', [1, 0])
@@ -41,10 +43,19 @@ function! coc#on_enter()
 endfunction
 
 function! coc#_insert_key(method, key, ...) abort
+  let prefix = ''
   if get(a:, 1, 1)
-    call coc#_cancel()
+    if pumvisible()
+      let g:coc_hide_pum = 1
+      if s:hide_pum
+        let prefix = "\<C-x>\<C-z>"
+      else
+        let g:coc_disable_space_report = 1
+        let prefix = "\<space>\<bs>"
+      endif
+    endif
   endif
-  return "\<c-r>=coc#rpc#".a:method."('doKeymap', ['".a:key."'])\<CR>"
+  return prefix."\<c-r>=coc#rpc#".a:method."('doKeymap', ['".a:key."'])\<CR>"
 endfunction
 
 function! coc#_complete() abort
@@ -63,12 +74,15 @@ function! coc#_complete() abort
 endfunction
 
 function! coc#_do_complete(start, items, preselect)
+  if pumvisible()
+    let g:coc_disable_complete_done = 1
+  endif
   let g:coc#_context = {
         \ 'start': a:start,
         \ 'candidates': a:items,
         \ 'preselect': a:preselect
         \}
-  if mode() =~# 'i' && &paste != 1
+  if mode() =~# 'i'
     call feedkeys("\<Plug>CocRefresh", 'i')
   endif
 endfunction
@@ -79,7 +93,7 @@ function! coc#_select_confirm() abort
   endif
   let selected = complete_info()['selected']
   if selected != -1
-     return "\<C-y>"
+    return "\<C-y>"
   elseif pumvisible()
     return "\<down>\<C-y>"
   endif
@@ -91,17 +105,40 @@ function! coc#_selected()
   return coc#rpc#request('hasSelected', [])
 endfunction
 
+" Deprecated
 function! coc#_hide() abort
-  if !pumvisible() | return | endif
-  call feedkeys("\<C-e>", 'in')
+  if pumvisible()
+    call feedkeys("\<C-e>", 'in')
+  endif
 endfunction
 
-function! coc#_cancel()
+function! coc#_cancel(...)
   " hack for close pum
+  " Use of <C-e> could cause bad insert when cursor just moved.
+  let g:coc#_context = {'start': 0, 'preselect': -1,'candidates': []}
   if pumvisible()
-    let g:coc#_context = {'start': 0, 'preselect': -1,'candidates': []}
-    call feedkeys("\<Plug>CocRefresh", 'i')
-    call coc#rpc#notify('stopCompletion', [])
+    let g:coc_hide_pum = 1
+    if get(a:, 1, 0)
+      " Avoid delayed CompleteDone cancel new completion
+      let g:coc_disable_complete_done = 1
+    endif
+    if s:hide_pum
+      call feedkeys("\<C-x>\<C-z>", 'in')
+    elseif exists('*complete_info') && get(complete_info(['selected']), 'selected', -1) == -1
+      call feedkeys("\<C-e>", 'in')
+    else
+      let g:coc_disable_space_report = 1
+      call feedkeys("\<space>\<bs>", 'in')
+    endif
+  endif
+  for winid in coc#float#get_float_win_list()
+    if getwinvar(winid, 'kind', '') ==# 'pum'
+      call coc#float#close(winid)
+    endif
+  endfor
+  let opt = get(a:, 2, '')
+  if !empty(opt)
+    execute 'noa set completeopt='.opt
   endif
 endfunction
 
@@ -193,4 +230,27 @@ function! coc#do_notify(id, method, result)
   if !empty(Fn)
     call Fn(a:result)
   endif
+endfunction
+
+function! coc#complete_indent() abort
+  let l:curpos = getcurpos()
+  let l:indent_pre = indent('.')
+
+  let l:startofline = &startofline
+  let l:virtualedit = &virtualedit
+  set nostartofline
+  set virtualedit=all
+  normal! ==
+  let &startofline = l:startofline
+  let &virtualedit = l:virtualedit
+
+  let l:shift = indent('.') - l:indent_pre
+  let l:curpos[2] += l:shift
+  let l:curpos[4] += l:shift
+  call cursor(l:curpos[1:])
+  if l:shift != 0
+    call coc#_cancel()
+    return 1
+  endif
+  return 0
 endfunction

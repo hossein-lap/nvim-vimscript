@@ -5,6 +5,7 @@ let s:is_win = has("win32") || has("win64")
 let s:clients = {}
 
 if get(g:, 'node_client_debug', 0)
+  echohl WarningMsg | echon '[coc.nvim] Enable g:node_client_debug could impact your vim experience' | echohl None
   let $NODE_CLIENT_LOG_LEVEL = 'debug'
   if exists('$NODE_CLIENT_LOG_FILE')
     let s:logfile = resolve($NODE_CLIENT_LOG_FILE)
@@ -81,16 +82,20 @@ function! s:start() dict
     if has('nvim-0.5.0')
       " could use env option
       let opts['env'] = {
+          \ 'COC_NVIM': '1',
           \ 'NODE_NO_WARNINGS': '1',
           \ 'COC_CHANNEL_TIMEOUT': timeout,
           \ 'TMPDIR': tmpdir
           \ }
     else
-      let original = {
-            \ 'NODE_NO_WARNINGS': getenv('NODE_NO_WARNINGS'),
-            \ 'TMPDIR': getenv('TMPDIR'),
-            \ }
+      if exists('*getenv')
+        let original = {
+              \ 'NODE_NO_WARNINGS': getenv('NODE_NO_WARNINGS'),
+              \ 'TMPDIR': getenv('TMPDIR'),
+              \ }
+      endif
       if exists('*setenv')
+        call setenv('COC_NVIM', '1')
         call setenv('NODE_NO_WARNINGS', '1')
         call setenv('COC_CHANNEL_TIMEOUT', timeout)
         call setenv('TMPDIR', tmpdir)
