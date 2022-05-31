@@ -256,20 +256,23 @@ hi User3 guifg=#cccccc guibg=#282a2e " ctermbg=4   ctermfg=232 cterm=bold gui=bo
 hi User4 guifg=#ff9800 guibg=#282a2e " ctermbg=4   ctermfg=232 cterm=bold gui=bold
 " }}}
 " Config section {{{
-set laststatus=2                                       " show status line
-set statusline=                                        " status line config
+set laststatus=2                       " show status line
+set statusline=                        " status line config
 set statusline+=%1*\ %{toupper(g:currentmode[mode()])} " The current mode
 "set statusline+=%1*%{toupper(g:currentmode[mode()])}   " The current mode
-set statusline+=\                                      " blank space
-set statusline+=%{StatuslineGitBranch()}               " git brunch in current directory
-"set statusline+=%4*\                                   " blank space
+set statusline+=\                      " blank space
+set statusline+=%{StatuslineGitBranch()} " git brunch in current directory
+"set statusline+=%4*\                  " blank space
 set statusline+=%2*%<%F                " Full path
-set statusline+=%4*\                   " blank space
+set statusline+=%2*\                   " blank space
 set statusline+=%3*%m                  " Modified character
-set statusline+=%4*\                   " blank space
+set statusline+=%3*\                   " blank space
 set statusline+=%3*%r                  " ReadOnly character
 set statusline+=%=                     " Break to the right side
-set statusline+=%4*\                   " blank space
+set statusline+=%3*\{                  " { char
+set statusline+=%3*%{&fileformat}      " show file format [EOL character]
+set statusline+=%3*\}                  " } char
+set statusline+=%3*\                   " blank space
 set statusline+=%4*%c                  " Current character
 set statusline+=%4*\                   " blank space
 set statusline+=%4*\|                  " Separator

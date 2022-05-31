@@ -60,6 +60,7 @@ set cursorline                   " highlight the cursor position
 "" show qss highlighting like css      
 au BufRead,BufNewFile *.qss set filetype=css
 au BufRead,BufNewFile *.vifm set filetype=vim
+au BufRead,BufNewFile *.h set filetype=c
 "au BufRead,BufNewFile *.xml set filetype=html
 "
 "" code folding               " z-c   create

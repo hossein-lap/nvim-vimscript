@@ -23,7 +23,7 @@ hi Cursor           ctermfg=234     ctermbg=255     cterm=NONE      guifg=#1C1C1
 hi CursorColumn     ctermfg=NONE    ctermbg=233     cterm=NONE      guifg=NONE          guibg=#121212   gui=NONE
 hi CursorLine       ctermfg=NONE    ctermbg=233     cterm=NONE      guifg=NONE          guibg=#121212   gui=NONE
 hi CursorLineNr     ctermfg=59      ctermbg=233     cterm=NONE      guifg=#5F5F5F       guibg=#121212   gui=NONE
-hi DiffAdd          ctermfg=255     ctermbg=64      cterm=bold      guifg=#EEEEEE       guibg=#5F8700   gui=bold
+hi DiffAdd          ctermfg=64      ctermbg=NONE    cterm=bold      guifg=#5F8700       guibg=NONE      gui=bold
 hi DiffChange       ctermfg=NONE    ctermbg=NONE    cterm=NONE      guifg=NONE          guibg=NONE      gui=NONE
 hi DiffDelete       ctermfg=167     ctermbg=NONE    cterm=NONE      guifg=#D75F5F       guibg=NONE      gui=NONE
 hi DiffText         ctermfg=255     ctermbg=24      cterm=bold      guifg=#EEEEEE       guibg=#005F87   gui=bold

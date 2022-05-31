@@ -16,6 +16,7 @@ source ~/.config/nvim/netrw.vim
 "colorscheme ayu
 "colorscheme hybrid_material
 colorscheme hybrid_reverse
+"colorscheme minimalist
 "
 "" Skeleton Templates:
 source ~/.vim/skels.vim
@@ -25,14 +26,18 @@ source ~/.config/nvim/ide.vim
 "
 "" Statusline:
 source ~/.config/nvim/status.vim
-" lualine
-luafile ~/.config/nvim/lspconfig.lua
+"
+" lspconf
+"luafile ~/.config/nvim/lspconfig.lua
 "
 "" Compile Debug And Run:
 source ~/.config/nvim/cp.vim
 "
 "" Keybinds:
 source ~/.config/nvim/keybinds.vim
+"
+"" Minimal Snippet Manager:
+source ~/.config/nvim/snippet.vim
 "
 "" Extra Features:
 source ~/.config/nvim/extra.vim

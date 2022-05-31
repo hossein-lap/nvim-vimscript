@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =4
+let g:netrw_dirhist_4='/home/hos/Desktop/mdown-test'
+let g:netrw_dirhist_3='/home/hos/Documents/teach/python'
+let g:netrw_dirhist_2='/home/hos/Documents/latex/xepersian/resume'
+let g:netrw_dirhist_1='/home/hos/dev/new/mdown'
+let g:netrw_dirhist_0='/home/hos/Desktop/mdown-test'
+let g:netrw_dirhist_9='/home/hos/dev/github-pj/vim/miniSnip/c'
+let g:netrw_dirhist_8='/home/hos/dev/pj/de/npst/st'
+let g:netrw_dirhist_7='/home/hos/Documents/teach/python'
+let g:netrw_dirhist_6='/home/hos/.config/nvim'
+let g:netrw_dirhist_5='/tmp'

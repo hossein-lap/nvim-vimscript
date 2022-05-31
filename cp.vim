@@ -8,9 +8,9 @@
 function! TermWrapper(command) abort
   if !exists('g:split_term_style') | let g:split_term_style = 'vertical' | endif
   if g:split_term_style ==# 'vertical'
-        let buffercmd = '80vnew'
+        let buffercmd = '50vnew'
   elseif g:split_term_style ==# 'horizontal'
-        let buffercmd = '20new'
+        let buffercmd = '15new'
   else
     echoerr 'ERROR! g:split_term_style is not a valid value (must be ''horizontal'' or ''vertical'' but is currently set to ''' . g:split_term_style . ''')'
     throw 'ERROR! g:split_term_style is not a valid value (must be ''horizontal'' or ''vertical'')'
@@ -25,9 +25,9 @@ function! TermWrapper(command) abort
 endfunction
 " }}}
 
-" split size {{{
-let g:split_term_resize_cmd = ('resize 50')
-" }}}
+"" split size {{{
+"let g:split_term_resize_cmd = ('resize 50')
+"" }}}
 "" choose between 'vertical | ' and 'horizontal - ' {{{
 "" for how the terminal window is split
 "" (default is vertical)

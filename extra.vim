@@ -45,7 +45,7 @@ endfunction
 nmap <C-s>a      :call ToggleAutoFill()<CR>
 imap <C-s>a <esc>:call ToggleAutoFill()<CR>a
 "
-au FileType c,cpp,sh,python,lua,markdown,tex,vim,csh,plaintex
+au FileType c,cpp,sh,python,lua,markdown,tex,vim,csh,plaintex,rmd
       \ call AutoFill()
 "
 " Markdown complete
@@ -63,7 +63,7 @@ function! MDownFillOff()
     iu _
 endfunction
 "
-au FileType markdown call MDownFill()
+au FileType markdown,rmd call MDownFill()
 "au FileType html,xml inoremap <  <><Left>
 " }}}
 " auto comment and uncomment with - and + {{{
@@ -86,8 +86,12 @@ autocmd FileType asm set noexpandtab shiftwidth=8 softtabstop=8 syntax=nasm
 "
 "" c filetype
 augroup cfiletype
-    au FileType c set noexpandtab 
+    au FileType c set noexpandtab
     au FileType c set tabstop=8
     au FileType c set softtabstop=8
     au FileType c set shiftwidth=8
 augroup END
+
+" define plaintex as tex files
+autocmd FileType plaintex set filetype=tex
+

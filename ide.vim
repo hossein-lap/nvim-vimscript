@@ -13,9 +13,10 @@ set shortmess+=c                        " no showing matchs
 " vim-plug {{{
 call plug#begin('~/.config/nvim/vimplug')
 	Plug 'ap/vim-css-color'               " Color previews for CSS
-	Plug 'neovim/nvim-lspconfig'
+"	Plug 'Jorengarenar/miniSnip'
+"	Plug 'neovim/nvim-lspconfig'
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "	Plug 'wbthomason/packer.nvim'
-"	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "	Plug 'inkarkat/vim-CursorLineCurrentWindow'
 call plug#end()
 "    Plug 'nvim-lualine/lualine.nvim'
